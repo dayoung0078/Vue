@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        v-if
+        지시문은 v-if 조건부로 블록을 렌더링하는데 사용된다.
+        지시자의 식이 참값을 반환하는 경우에만 블록이 렌더링된다.
+    -->
+    <div id="step01">
+        <div v-if="isTrue">
+            <p>참인경우</p>
+        </div>
+        <div v-if="!isTrue">
+            <p>참이 아닌 경우</p>
+        </div>
+        <hr>
+        <div v-if="truthy">
+            <p>{{truthy}}</p>
+        </div>
+    </div>
+    <hr>
+    <!-- 
+        V-if & v-else-if & v-else
+        if 조건부로 블록을 렌더링 하는데 지시자의 식이 참인 경우 if 블록을 렌더링하게 된다.
+        그러나 If 블록의 지시자의 식이 차밍 아닌 경우 else 블록이 렌더링 된다.
+    -->
+
+    <div id="#step02">
+        <h1 v-if="awesome ==='awesome'"> Vue is awesome!</h1>
+        <h1 v-else-if="awesome ==='good'">hello</h1>
+        <h1 v-else>Oh No ㅠ_ㅠ</h1>
+        <button>@click="setToggle">toggle</button>
+    </div>
+    <hr>
+
+    <!-- 
+        <template> <- 쓰는 목적? v-if는 엘리먼트요소안에 묶어줘야하는데, 
+        v-if는 조건에 따라 특정 요소를 렌더링하거나 제거하는데 사용한다.
+        그러나 요소를 렌더링하는 과정에 요소들을 감싸주는 부모가 필요하지 않을 수 있다.
+        이러한 경우 Template를 이용하여 부모가 요소가 없이 요소들을 그룹화 하는 것이 가능해진다.
+    -->
+
+    <div id="step03">
+        <template v-if="isTrue">
+            <h1>awesome</h1>
+            <h1>good</h1>
+        </template>
+
+    </div>
+
+    <div id="step04">
+        <h1 v-show="state">hellowww</h1>
+        <button @click="setState">{{state}}</button>
+    </div>
+
+    <script>
+        const {createApp, ref} = Vue
+        
+        createApp({
+            setup(){
+                const isTrue = ref(true);
+                const truthy = ref("truthy");
+                const falsy = ref("");
+                return {
+                    isTrue,
+                    truthy,
+                    falsy
+                }
+            }
+        }).mount("#step01")
+
+        
+        createApp({
+            setup(){
+                const awesome = ref("awesome");
+                const count = ref(1); // count가 return에 들어가지 않는 이유 : 배열에서 하나 뽑기위해서 넣은것이기때문에
+                function setToggle(){
+                    const options = ["awesome", "good","not good"];
+                    const optionIndex = count.value % options.length;
+                    awesome.value = options[optionIndex];
+                    count.value++;
+                }
+                return{
+                    awesome,
+                    setToggle
+                }
+
+            }
+
+        }).mount("#step02");
+
+
+        createApp({
+            setup(){
+                const isTrue = ref(true);
+                return{
+                    isTrue
+                }
+            }
+        }).mount("#step03")
+
+
+
+        createApp({
+            setup(){
+                const state = ref(true);
+                function setState(){
+                    state.value =!state.value;
+                }
+                return{
+                    state,
+                    setState
+                }
+            }
+
+        }).mount("#step04")
+            
+
+    </script>
+</body>
+</html>
