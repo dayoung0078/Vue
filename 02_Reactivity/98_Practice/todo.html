@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>ToDo List</title>
+</head>
+<body>
+    <div id="step01">
+        <h1>Todolist</h1>
+        <input type="text" v-model="newItem">
+        <button @click="addItem">Enter</button>
+        <hr>
+        <div>
+            <div v-for="(iiiiitem,index) in itemList">
+                {{ iiiiitem }}
+                <button @click="deleteItem">delete</button> 
+            </div>              
+        </div>
+    </div>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const newItem = ref('');
+                const itemList = ref([]);
+
+                const addItem = () => {
+                        itemList.value.push(newItem.value);
+                    
+                };
+
+                const deleteItem = (index) => {
+                    itemList.value.splice(index,1);
+
+                };
+
+                
+                return {
+                    newItem,
+                    itemList,
+                    addItem,
+                    deleteItem
+                };
+            }
+        }).mount("#step01");
+    </script>
+</body>
+</html>

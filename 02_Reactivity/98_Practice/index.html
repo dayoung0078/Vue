@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./data.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+        1. 제목을 입력한다.
+        2. on-off 버튼을 만든다. 버튼 클릭후 charactermode 로 전환됨
+        3. 이름, 소개, 이미지 순으로 불러와진다.
+        4. 테두리를 만들어서 콘텐츠를 집어넣는다. 
+    -->
+
+    <style>
+
+        /* .img-container {
+            width: 200px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20;
+        } */
+
+        .row{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            overflow: auto;
+        }
+        .bordered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid black;
+            width: 300px;
+            height: 300px;
+            overflow: auto;
+            text-align: center;
+        }
+        
+        /* 이미지를 가로로 배치하고 싶은데 어쩌지? 일단 나중에 */
+        img {
+            display: inline-block; 
+            width: 100px;
+            height: 100px;
+        }
+
+
+    </style>
+
+    
+
+    <div class="row" id="app">
+    
+        <h1>vue tempalte 이벤트 적용</h1>
+            <!-- {{skill}} -->
+        <div v-for="item in skill" :key="item.id" class="bordered">
+            <h5>이름 : {{item.skill}}</h5>
+            <p>{{item.introduction}}</p>
+            <!-- <p>{{item.list}}</p> -->
+            <img v-for="img in item.imgs" :key="img" :src="img" />
+        </div>
+        
+        <div v-for="item in character" :key="item.id" class="bordered">
+            <h5>이름: {{item.name}}</h5>
+            <h5>{{item.introduction}}</h5>
+            <img :src="item.img" />
+            
+        </div>
+    </div>
+
+    <div id="app">
+        <h5>비활성화</h5>
+        <input : disabled="isTure" :value="isTrue" />
+        <br>
+        <button @click="activation">{{isTrue ? '활성화' : '비활성화'}}</button>
+        <hr>
+        
+    </div>
+
+    <script>
+        const {createApp, ref, reactive } = Vue;
+        createApp({
+            setup(){
+                const character = ref(scholar);
+                const skill = reactive(msaSkill);
+                return {
+                    character,
+                    skill
+                }
+            }
+        }).mount("#app");
+    </script>
+    
+</body>
+</html>

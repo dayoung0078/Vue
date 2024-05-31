@@ -15,7 +15,7 @@ const scholar = [
         "id": 3,
         "name": "Steven Paul Jobs",
         "introduction": "처음으로 PC에 GUI를 사용, mouse를 PC에 적용하여 대중화, 온라인 음악시장의 성공적인 모델을 보여준 인물",
-        "imge": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/225px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg"
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/225px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg"
     },
     {
         "id": 4,

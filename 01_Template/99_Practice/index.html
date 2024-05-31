@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./data.js"></script>
+    <title>Vue</title>
+</head>
+
+<style>
+    
+    .character{
+        border: 2px solid black;
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+    }
+    
+
+    .imgContainer{
+        display: flex;
+        justify-content: center;
+    }
+    .imgContainer img{
+        
+        width: 50%;
+        height: 50%;
+    }
+    .container{
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+<body>
+    <!-- 
+        이번 챕터에서는 간단하게 Vue의 문법을 적용하여 화면을 호출하는 실습을 진행함
+    -->
+    
+    <div id="app"> //Vue 애플리케이션이 마운트될 HTML 요소입니다.
+        <div v-for="item in jsonData" :key="item.id" class="character"> //페이지의 제목을 설정합니다.
+
+            <div class="container">  <!-- 데이터를 반복하여 표시할 컨테이너입니다. -->
+                <div v-for="item in jsonData" :key="item.id" class="character"> 
+                <!-- v-for 디렉티브는 jsonData 배열을 반복하며 각 항목에 대해 HTML 요소를 생성합니다. :key 속성은 Vue가 각 항목을 고유하게 식별할 수 있도록 합니다. -->
+                    <h5>이름 : {{item.name}}</h5> <!--각 항목의 이름을 표시합니다.--> 
+                    <p>{{item.introduction}}</p> <!--각 항목의 소개 문구를 표시합니다.--> 
+                    <div class="imgContainer"> <!--이미지를 포함하는 컨테이너입니다.--> 
+                        <img :src=item.img /> <!--각 항목의 이미지를 표시합니다. :src는 Vue의 바인딩 문법으로, item.img 값을 이미지의 src 속성에 할당합니다.--> 
+                    </div>
+            </div>
+            </div>
+            
+        </header>
+        
+
+    </div>
+    
+    <script>
+        const { createApp } = Vue // Vue의 createApp 함수를 가져옵니다.
+        createApp({
+            setup() { // Vue 애플리케이션을 생성합니다. setup 함수 안에 컴포넌트의 로직을 작성합니다.
+                const jsonData = scholar; // scholar라는 데이터를 jsonData 변수에 할당합니다. scholar는 JSON 데이터 객체여야 합니다.
+                return {
+                    jsonData
+                } // jsonData를 컴포넌트의 데이터로 반환하여 템플릿에서 사용할 수 있게 합니다.
+            },
+        }).mount("#app") // Vue 애플리케이션을 #app 요소에 마운트합니다.
+
+    </script>
+
+</body>
+
+</html>

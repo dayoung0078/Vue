@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./data2.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+    <header>
+        <h2>vue V-model 이해하기</h2>
+    </header>
+</head>
+
+<body>
+
+
+    
+    <div id="app">
+        <button @click="df"조회></button>
+        <div v-if="mode == 'select'">
+            <h1>hi~</h1>
+        </div>
+<!-- 등록폼 -->
+        <div class="inputContainer">
+            <select v-model="type">
+                <option value="인물등록">인물등록</option>
+                <option value="스킬등록">스킬등록</option>
+            </select>
+            <div v-if="type === 'character'" class="inputbox"> 
+                <!-- 반응성객체가 바뀐다. -->
+
+                <label>name : </label>
+                <input v-model="characterInfo.name" />
+
+                <label>introduction : </label>
+                <input v-model="characterInfo.introduction" />
+
+                <label>img : </label>
+                <input v-model="characterInfo.img" />
+                </div>
+
+                <div v-else class="inputbox"> 
+                    <!-- 반응성객체가 바뀐다. -->
+    
+                    <label>list : </label>
+                    <input v-model="characterInfo.name" placeholder="기술 list는 ','로 구분해주세요" />
+                                    <!-- placeholder - 안내  -->
+                    <label>introduction : </label>
+                    <input v-model="characterInfo.introduction" />
+    
+                    <label>img : </label>
+                    <input v-model="characterInfo.img" />
+
+
+            </div>
+            <button @click="pushHandler">등록</button>
+            <!--pushHandler 클릭했을때 변화가 있어야하니까. 반응성변수 종류, 어떻게 알아봐? -->
+
+
+
+        </div>
+
+    </div>
+
+    <script>
+        const {createApp, ref} = Vue;
+
+        createApp({
+            setup(){
+                const type = ref("character");
+                const characters = ref([]);
+                // 값이 여러개고, 반복할 때 가장 쉬운 자료형이 배열이여서 배열 []을 넣음
+
+                const characterInfo = reactive({
+                    id : 0,
+                    name : "",
+                    introduction : "",
+                    img : ""
+                });
+
+                const skillInfo = reactive({
+                    id : 0,
+                    skill : "",
+                    list : "", // 여기에 [] 넣으면 v-model과 연결이 안되고 또다른 function을 만들어야함.
+                    imgs : [] // 자료형이 달라서 여기는 [] 배열로 넣는다.
+                });
+
+                function pushHandler(){
+                    if(!characterInfo.name){
+                        // 느낌표 하나면 펄스, 두개면 펄시
+                    return ;
+                    }
+
+                    if(!characterInfo.introduction){
+                        // 느낌표 하나면 펄스, 두개면 펄시
+                    return ;
+                    }
+                    if(!characterInfo.img){
+                        // 느낌표 하나면 펄스, 두개면 펄시
+                    return ;
+                    }
+                    // console.log(검증완료) // 이건 콘솔창 확인할때. 확인 다 되면 지워줘도 된다.
+
+                    characterInfo.id = characters.value.length;
+                    // value 넣는 이유? ref 변수이기때문에
+                    characters.value.push({...characterInfo}); // 객체의 값을 푸시하겠다. ({}) 스프레드 연산자
+                }
+
+    
+                
+                return{
+                    type,
+                    characterInfo,
+                    characters, // 이걸 반환해주는건 확인하려고
+                    skillInfo,
+                    // 띄어쓰는 이유는 헷갈려서 분리할려고
+                    pushHandler
+                }
+            }
+
+        }).mount("#app");
+
+    </script>
+    
+</body>
+
+</html>
