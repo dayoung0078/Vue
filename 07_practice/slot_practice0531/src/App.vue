@@ -4,9 +4,6 @@ import HONG from "./components/HONG.vue";
 
 <template>
 
-    <div class="Emoginame">
-    <<HONGchild/>
-  </div>
 
     <main>
         
@@ -21,5 +18,8 @@ import HONG from "./components/HONG.vue";
 </template>
 
 <style scoped>
+.test {
+  border: 1px solid;
+}
 
 </style>
